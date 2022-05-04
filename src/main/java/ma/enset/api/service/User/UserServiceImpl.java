@@ -5,6 +5,8 @@ import ma.enset.api.Exceptions.Users.UserAlreadyExistException;
 import ma.enset.api.Exceptions.Users.UserNotFoundException;
 import ma.enset.api.entities.User;
 import ma.enset.api.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -15,7 +17,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-
+    PasswordEncoder passwordEncoder;
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
         User retreivedUser = userRepository.findByUsername(user.getUsername());
 
         if (retreivedUser == null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } else throw new UserAlreadyExistException(user.getUsername());
     }
@@ -47,9 +50,9 @@ public class UserServiceImpl implements UserService {
         }
         oldUser.setFullname(newUser.getFullname());
         oldUser.setUsername(newUser.getUsername());
-        oldUser.setPassword(newUser.getPassword());
+        oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         oldUser.setEmail(newUser.getEmail());
-        return userRepository.save(newUser);
+        return userRepository.save(oldUser);
     }
 
     @Override
