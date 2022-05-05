@@ -2,6 +2,7 @@ package ma.enset.api.service.User;
 
 import lombok.AllArgsConstructor;
 import ma.enset.api.Exceptions.Users.UserAlreadyExistException;
+import ma.enset.api.Exceptions.Users.UserNameAlreadyExistException;
 import ma.enset.api.Exceptions.Users.UserNotFoundException;
 import ma.enset.api.entities.User;
 import ma.enset.api.repositories.UserRepository;
@@ -49,6 +50,9 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(id);
         }
         oldUser.setFullname(newUser.getFullname());
+        if(userRepository.findByUsername(newUser.getUsername())!=null && !newUser.getUsername().equals(oldUser.getUsername())) {
+            throw new UserNameAlreadyExistException(newUser.getUsername());
+        }
         oldUser.setUsername(newUser.getUsername());
         oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         oldUser.setEmail(newUser.getEmail());
