@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -22,4 +23,11 @@ public class User {
 
     @NotBlank(message = "cannot be null")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private  List<Test> ownedTests;
+
+    @ManyToMany(mappedBy = "users")
+    @Column(name = "test_id")
+    private List<Test> passedTests;
 }
