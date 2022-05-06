@@ -1,6 +1,8 @@
 package ma.enset.api.web;
 
 import lombok.AllArgsConstructor;
+import ma.enset.api.Exceptions.Users.UserNotFoundException;
+import ma.enset.api.entities.Test;
 import ma.enset.api.entities.User;
 import ma.enset.api.service.User.UserService;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +47,14 @@ public class UserController {
     String deleteUser(@PathVariable long id) {
         return userService.deleteUserById(id);
 
+    }
+
+    @GetMapping("/users/{id}/tests")
+    List<Test> testsByUser(@PathVariable long id){
+        User user = userService.getUserById(id);
+        if(user==null){
+            throw new UserNotFoundException(id);
+        }
+        return user.getPassedTests();
     }
 }
