@@ -24,7 +24,7 @@ public class User {
     @NotBlank(message = "cannot be null")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private  List<Test> ownedTests;
 
     @ManyToMany(mappedBy = "users")
