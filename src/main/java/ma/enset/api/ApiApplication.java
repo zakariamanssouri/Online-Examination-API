@@ -15,18 +15,14 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-	/*
+/*
 	@Bean
 	CommandLineRunner commandLineRunner(UserRepository userRepository) {
 		return args -> {
 			for (int i = 0; i < 10; i++) {
-				userRepository.save(new User(null, "laayouni mouad", "mouad"+i, "aa@gg.com", "123456",null,null));
+				userRepository.save(new User(null, "test user", "user"+i, "aa@gg.com", "123456",null,null));
 			}
 		};
 	}
-	 */
-	@Bean
-	PasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+*/
 }

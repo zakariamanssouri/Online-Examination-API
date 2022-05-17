@@ -27,9 +27,10 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    ResponseEntity<String> addNewUser(@Valid @RequestBody User user) {
+    ResponseEntity<User> addNewUser(@Valid @RequestBody User user) {
+        System.out.println(user);
         userService.addNewUser(user);
-        return ResponseEntity.ok("user created");
+        return ResponseEntity.ok(user);
     }
 
 
