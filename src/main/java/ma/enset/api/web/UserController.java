@@ -43,7 +43,12 @@ public class UserController {
     User updateUser(@Valid @RequestBody User newUser, @PathVariable long id) {
         return userService.updateUser(newUser, id);
     }
-
+    @GetMapping("/user/{username}")
+    ResponseEntity<User> getUserByUsernamse(@PathVariable String username){
+        User user =userService.getUserByUsername(username);
+        if(user!=null) return ResponseEntity.ok(user);
+        return ResponseEntity.status(404).body(null);
+    }
     @DeleteMapping("/user/{id}")
     String deleteUser(@PathVariable long id) {
         return userService.deleteUserById(id);

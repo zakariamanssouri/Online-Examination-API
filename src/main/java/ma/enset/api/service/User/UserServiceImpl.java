@@ -60,6 +60,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User testAuthentication
+    @Override
     public String deleteUserById(long id) {
         User retreivedUser = userRepository.findById(id).orElse(null);
 
