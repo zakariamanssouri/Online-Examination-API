@@ -65,7 +65,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User testAuthentication
+    public User testAuthentication(String username,String password){
+        User user = userRepository.findByUsername(username);
+        if(passwordEncoder.matches(password,user.getPassword()))
+            return user;
+        else
+            return null;
+    }
     @Override
     public String deleteUserById(long id) {
         User retreivedUser = userRepository.findById(id).orElse(null);

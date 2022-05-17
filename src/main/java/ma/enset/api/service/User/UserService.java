@@ -15,5 +15,8 @@ public interface UserService {
     User updateUser(User user, long id);
 
     User getUserByUsername(String username);
+
+    User testAuthentication(String username,String password);
+
     String deleteUserById(long id);
 }
