@@ -6,29 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Test {
+public class Question {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String link;
+    private String question;
 
-    @Column(unique = true)
-    private String code;
+    @OneToMany(mappedBy = "question",fetch = FetchType.LAZY)
+    private List<Choice> choices=new ArrayList<>();
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User owner;
-
-    @OneToMany(mappedBy = "test")
-    private List<Question> questions;
-
-    @ManyToMany
-    @Column(name = "user_id")
-    @JoinTable(name = "passed_tests")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<User> users;
+    private Test test;
 }

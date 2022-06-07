@@ -3,8 +3,10 @@ package ma.enset.api.web;
 import lombok.AllArgsConstructor;
 import ma.enset.api.Exceptions.Tests.TestNotFoundException;
 import ma.enset.api.Exceptions.Users.UserNotFoundException;
+import ma.enset.api.entities.Question;
 import ma.enset.api.entities.Test;
 import ma.enset.api.entities.User;
+import ma.enset.api.service.Question.QuestionService;
 import ma.enset.api.service.Test.TestService;
 import ma.enset.api.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,21 @@ import java.util.List;
 public class TestController {
     private TestService testService;
     private UserService userService;
+    private QuestionService questionService;
 
     /*all tests*/
     @GetMapping("/tests")
     public List<Test> getAllTests() {
         return testService.getAll();
+    }
+    @GetMapping("/test/questions")
+    public List<Question> getAllQuestions(@Valid @RequestBody Test test){
+        return questionService.getAllQuestions(test);
+    }
+    @PostMapping("/test/question")
+    ResponseEntity<String> addNewQuestion(@Valid @RequestBody Question question) {
+        questionService.addNewQuestion(question);
+        return ResponseEntity.ok("question added");
     }
 
     @PostMapping("/test")
