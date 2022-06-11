@@ -56,4 +56,9 @@ public class TestServiceImpl implements TestService {
         }
 
     }
+
+    @Override
+    public List<Test> getTestsByKeyword(String keyword) {
+        return testRepository.findByNameContaining(keyword);
+    }
 }
