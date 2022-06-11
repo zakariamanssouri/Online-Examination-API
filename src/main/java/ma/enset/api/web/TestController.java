@@ -25,10 +25,10 @@ public class TestController {
     private QuestionService questionService;
 
     /*all tests*/
-    @GetMapping("/tests")
+   /* @GetMapping("/tests")
     public List<Test> getAllTests() {
         return testService.getAll();
-    }
+    }*/
     @GetMapping("/test/questions")
     public List<Question> getAllQuestions(@Valid @RequestBody Test test){
         return questionService.getAllQuestions(test);
@@ -39,23 +39,23 @@ public class TestController {
         return ResponseEntity.ok("question added");
     }
 
-    @PostMapping("/test")
+    @PostMapping("/tests")
     ResponseEntity<String> addNewTest(@Valid @RequestBody Test test) {
         testService.addNewTest(test);
         return ResponseEntity.ok("test created");
     }
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/tests/{id}")
     Test getTest(@PathVariable long id) {
         return testService.getTestById(id);
     }
 
-    @PutMapping("/test/{id}")
+    @PutMapping("/tests/{id}")
     Test updateUser(@Valid @RequestBody Test newTest, @PathVariable long id) {
         return testService.updateTest(newTest, id);
     }
 
-    @DeleteMapping("/test/{id}")
+    @DeleteMapping("/tests/{id}")
     String deleteTest(@PathVariable long id) {
         return testService.deleteTestById(id);
     }
@@ -69,6 +69,9 @@ public class TestController {
         return test.getUsers();
     }
 
-
+    @GetMapping("/tests")
+    List<Test> getTestsByKeyword(@RequestParam(name = "keyword",defaultValue = "") String keyword){
+        return testService.getTestsByKeyword(keyword);
+    }
 
 }
