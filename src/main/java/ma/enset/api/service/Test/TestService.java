@@ -15,4 +15,6 @@ public interface TestService {
     Test updateTest(Test test, long id);
 
     String deleteTestById(long id);
+
+    List<Test> getTestsByKeyword(String keyword);
 }
