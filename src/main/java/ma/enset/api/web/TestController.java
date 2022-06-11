@@ -74,4 +74,10 @@ public class TestController {
         return testService.getTestsByKeyword(keyword);
     }
 
+    //get questions related to a test
+    @GetMapping("/tests/{id}/questions")
+    List<Question> getTestQuestions(@PathVariable(name = "id") long id){
+        return testService.getTestQuestions(id);
+    }
+
 }

@@ -3,6 +3,7 @@ package ma.enset.api.service.Test;
 import lombok.AllArgsConstructor;
 import ma.enset.api.Exceptions.Tests.TestAlreadyExistException;
 import ma.enset.api.Exceptions.Tests.TestNotFoundException;
+import ma.enset.api.entities.Question;
 import ma.enset.api.entities.Test;
 import ma.enset.api.repositories.TestRepository;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,14 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<Test> getTestsByKeyword(String keyword) {
         return testRepository.findByNameContaining(keyword);
+    }
+
+    @Override
+    public List<Question> getTestQuestions(long id) {
+        Test test = testRepository.findById(id);
+        if (test == null) {
+            throw new TestNotFoundException();
+        }
+        else  return test.getQuestions();
     }
 }

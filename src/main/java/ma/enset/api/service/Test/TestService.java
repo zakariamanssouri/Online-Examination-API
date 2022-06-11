@@ -1,5 +1,6 @@
 package ma.enset.api.service.Test;
 
+import ma.enset.api.entities.Question;
 import ma.enset.api.entities.Test;
 import ma.enset.api.entities.User;
 
@@ -17,4 +18,6 @@ public interface TestService {
     String deleteTestById(long id);
 
     List<Test> getTestsByKeyword(String keyword);
+
+    List<Question> getTestQuestions(long id);
 }
